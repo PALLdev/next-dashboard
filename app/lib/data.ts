@@ -10,6 +10,8 @@ import {
 } from './definitions';
 import { formatCurrency } from './utils';
 import { unstable_noStore as noStore } from 'next/cache';
+import { notFound } from 'next/navigation';
+import { NeonDbError } from '../../node_modules/@neondatabase/serverless/index'
 
 export async function fetchRevenue() {
   // Add noStore() here to prevent the response from being cached.
@@ -172,9 +174,13 @@ export async function fetchInvoiceById(id: string) {
       // Convert amount from cents to dollars
       amount: invoice.amount / 100,
     }));
-
+    // console.log(invoice);
     return invoice[0];
   } catch (error) {
+    const err = error as NeonDbError
+    if (err.code === '22P02') {
+      notFound()
+    }
     console.error('Database Error:', error);
     throw new Error('Failed to fetch invoice.');
   }
