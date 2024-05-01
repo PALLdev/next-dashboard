@@ -11,7 +11,7 @@ import {
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Home',
+  title: 'Inicio',
 };
 
 export default async function Page() {

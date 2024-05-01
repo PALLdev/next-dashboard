@@ -10,13 +10,13 @@ import { AuthError } from 'next-auth';
 const FormSchema = z.object({
     id: z.string(),
     customerId: z.string({
-        invalid_type_error: 'Please select a customer.',
+        invalid_type_error: 'Debes seleccionar a un cliente.',
     }),
     amount: z.coerce
         .number()
-        .gt(0, { message: 'Please enter an amount greater than $0.' }),
+        .gt(0, { message: 'Ingresa un monto mayor a $0.' }),
     status: z.enum(['pending', 'paid'], {
-        invalid_type_error: 'Please select an invoice status.',
+        invalid_type_error: 'Debes seleccionar un estado.',
     }),
     date: z.string(),
 });
@@ -45,7 +45,7 @@ export async function createInvoice(prevState: State, formData: FormData) {
     if (!validatedFields.success) {
         return {
             errors: validatedFields.error.flatten().fieldErrors,
-            message: 'Missing Fields. Failed to Create Invoice.',
+            message: 'Debes completar el formulario. Fallo al Crear Factura.',
         };
     }
 
@@ -80,7 +80,7 @@ export async function updateInvoice(id: string, prevState: State, formData: Form
     if (!validatedFields.success) {
         return {
             errors: validatedFields.error.flatten().fieldErrors,
-            message: 'Missing Fields. Failed to Update Invoice.',
+            message: 'Debes completar el formulario. Fallo al Editar Factura.',
         };
     }
 
@@ -108,7 +108,7 @@ export async function deleteInvoice(id: string) {
     try {
         await sql`DELETE FROM invoices WHERE id = ${id}`;
         revalidatePath('/dashboard/invoices');
-        return { message: 'Deleted Invoice.' };
+        return { message: 'Factura eliminada exitosamente.' };
     } catch (err) {
         return { message: 'Database Error: Failed to Delete Invoice.' };
     }
@@ -126,9 +126,9 @@ export async function authenticate(
         if (error instanceof AuthError) {
             switch (error.type) {
                 case 'CredentialsSignin':
-                    return 'Invalid credentials.';
+                    return 'Credenciales no válidas.';
                 default:
-                    return 'Something went wrong.';
+                    return 'Algo salio mal al autenticarte.';
             }
         }
         throw error;

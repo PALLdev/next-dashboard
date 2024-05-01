@@ -7,8 +7,9 @@ export const metadata: Metadata = {
     template: '%s | Acme Dashboard',
     default: 'Acme Dashboard',
   },
-  description: 'The official Next.js Course Dashboard, built with App Router.',
-  metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
+  description:
+    'Dashboard para organizar a tus clientes y sus facturas pendientes o pagadas.',
+  metadataBase: new URL('https://next-dashboard-wheat-one-69.vercel.app/'),
 };
 
 export default function RootLayout({
@@ -17,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="es">
       <body className={`${inter.className} antialiased`}>{children}</body>
     </html>
   );

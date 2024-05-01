@@ -3,7 +3,7 @@ import Table from '@/app/ui/customers/table';
 import { fetchFilteredCustomers } from '@/app/lib/data';
 
 export const metadata: Metadata = {
-  title: 'Customers',
+  title: 'Clientes',
 };
 
 export default async function Page({
